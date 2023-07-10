@@ -9,12 +9,18 @@ import {
   ScrollView,
   FlatList,
   TouchableOpacity,
+  Dimensions,
+  TouchableHighlight,
 } from "react-native";
 import COLORS from "../../constants/colors";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import categories from "../../constants/categories";
+import foods from "../../constants/foods";
 
-const HomeScreen = () => {
+const { width } = Dimensions.get("screen");
+const cardWidth = width / 2 - 20;
+
+const HomeScreen = ({ navigation }) => {
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
 
   const ListCategories = () => {
@@ -25,10 +31,11 @@ const HomeScreen = () => {
         contentContainerStyle={styles.categoryListContainer}
       >
         {categories.map((category, index) => (
-          <TouchableOpacity 
-          key={index}
-          activeOpacity={0.8}
-          onPress={() => setSelectedCategoryIndex(index)}>
+          <TouchableOpacity
+            key={index}
+            activeOpacity={0.8}
+            onPress={() => setSelectedCategoryIndex(index)}
+          >
             <View
               style={{
                 backgroundColor:
@@ -45,14 +52,15 @@ const HomeScreen = () => {
                 />
               </View>
               <Text
-                style={{ 
+                style={{
                   fontSize: 15,
-                   fontWeight: "bold",
-                    marginLeft: 10,
-                    color: selectedCategoryIndex == index 
-                    ? COLORS.white
-                    : COLORS.primary
-                   }}
+                  fontWeight: "bold",
+                  marginLeft: 10,
+                  color:
+                    selectedCategoryIndex == index
+                      ? COLORS.white
+                      : COLORS.primary,
+                }}
               >
                 {category.name}
               </Text>
@@ -63,15 +71,44 @@ const HomeScreen = () => {
     );
   };
 
-  const Card = () => {
+  const Card = ({ food }) => {
     return (
-      <View>
-
-      </View>
-    )
-  }
-
-
+      <TouchableHighlight underlayColor={COLORS.white} activeOpacity={0.9} onPress={() => navigation.navigate('DetailsScreen', food)}>
+        <View style={styles.card}>
+          <View style={{ alignItems: "center", top: -40 }}>
+            <Image style={{ height: 120, width: 120 }} source={food.image} />
+          </View>
+          <View style={{ marginHorizontal: 20 }}>
+            <Text
+              style={{ fontSize: 18, fontWeight: "bold", color: COLORS.dark }}
+            >
+              {food.name}
+            </Text>
+            <Text style={{ fontSize: 14, color: COLORS.grey, marginTop: 2 }}>
+              {food.ingredients}
+            </Text>
+          </View>
+          <View
+            style={{
+              marginTop: 10,
+              marginHorizontal: 20,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text
+              style={{ fontSize: 18, fontWeight: "bold", color: COLORS.dark }}
+            >
+              ${food.price}
+            </Text>
+            <View style={styles.addToCardBtn}>
+              <Icon name="add" color={COLORS.white} size={20} />
+            </View>
+          </View>
+        </View>
+      </TouchableHighlight>
+    );
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -116,7 +153,12 @@ const HomeScreen = () => {
       <View>
         <ListCategories />
       </View>
-      <FlatList />
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        numColumns={2}
+        data={foods}
+        renderItem={({ item }) => <Card food={item} />}
+      />
     </SafeAreaView>
   );
 };
@@ -165,6 +207,24 @@ const styles = StyleSheet.create({
     width: 35,
     backgroundColor: COLORS.white,
     borderRadius: 30,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  card: {
+    height: 220,
+    width: cardWidth,
+    marginHorizontal: 10,
+    marginBottom: 20,
+    marginTop: 50,
+    borderRadius: 15,
+    elevation: 13,
+    backgroundColor: COLORS.white,
+  },
+  addToCardBtn: {
+    height: 30,
+    width: 30,
+    borderRadius: 15,
+    backgroundColor: COLORS.primary,
     justifyContent: "center",
     alignItems: "center",
   },
