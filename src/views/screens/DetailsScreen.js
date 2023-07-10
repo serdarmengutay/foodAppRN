@@ -32,7 +32,7 @@ const DetailsScreen = ({ navigation, route }) => {
           style={{
             justifyContent: "center",
             alignItems: "center",
-            height: 280,
+            height: 320,
           }}
         >
           <Image source={item.image} style={{ height: 220, width: 220 }} />
@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
   details: {
     backgroundColor: COLORS.primary,
     paddingHorizontal: 20,
-    paddingTop: 40,
-    paddingBottom: 60,
+    paddingTop: 80,
+    paddingBottom: 100,
     borderTopRightRadius: 40,
     borderTopLeftRadius: 40,
   },

@@ -5,6 +5,7 @@ const foods = [
       ingredients: 'Mixed Pizza',
       price: '8.30',
       image: require('../assets/meatPizza.png'),
+      quantity: '3'
     },
     {
       id: '2',
@@ -12,6 +13,7 @@ const foods = [
       ingredients: 'Cheese Pizza',
       price: '7.10',
       image: require('../assets/cheesePizza.png'),
+      quantity: '5'
     },
     {
       id: '3',
@@ -19,6 +21,7 @@ const foods = [
       ingredients: 'Fried Chicken',
       price: '5.10',
       image: require('../assets/chickenBurger.png'),
+      quantity: '2'
     },
     {
       id: '4',
@@ -26,6 +29,7 @@ const foods = [
       ingredients: 'Salmon Meat',
       price: '9.55',
       image: require('../assets/sushiMakizushi.png'),
+      quantity: '4'
     },
   ];
   
